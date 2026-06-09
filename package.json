@@ -1,0 +1,33 @@
+{
+  "name": "parabank_automation",
+  "version": "1.0.0",
+  "description": "End-to-end test automation for Parabank (UI + REST API) using Playwright + TypeScript.",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --project=chromium --project=firefox --project=webkit",
+    "test:api": "playwright test --project=api",
+    "test:headed": "playwright test --headed --project=chromium",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "parabank",
+    "e2e",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2",
+    "typescript": "^6.0.3"
+  }
+}

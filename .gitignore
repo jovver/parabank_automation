@@ -1,0 +1,18 @@
+node_modules/
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+
+# Playwright artifacts
+/playwright-report/
+/test-results/
+/blob-report/
+/playwright/.cache/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.log
