@@ -1,6 +1,6 @@
 # Parabank Automation
 
-End-to-end test automation for [Parabank](https://parabank.parasoft.com/parabank/index.htm), Parasoft's public demo banking application. Covers UI flows in the browser and the REST API exposed under `/parabank/services_proxy/bank/`.
+End-to-end test automation for [Parabank](https://parabank.parasoft.com/parabank/index.htm), Parasoft's public demo banking application. Covers UI flows in the browser and the REST API exposed under `/parabank/services/bank/`.
 
 ## Stack
 
@@ -63,9 +63,13 @@ tests/
   ui/        # browser tests, one spec per user flow
   api/       # REST tests using Playwright's request fixture
 pages/       # Page Object Models — one class per Parabank screen
+src/         # contains the configuration files for the fixtures
+  config/    # contains the utility functions for the fixtures
 api/         # typed wrappers around Parabank REST endpoints
 fixtures/    # custom Playwright fixtures (auth, seeded user, API client)
-utils/       # pure helpers (data builders, formatters)
+utils/       # utility functions and models
+  models/    # for modeling the data types and interfaces of the application
+  helpers    # pure utility functions not belonging to a specific page (page-agnostic)
 playwright.config.ts
 ```
 

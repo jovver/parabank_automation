@@ -4,9 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-End-to-end test automation for [Parabank](https://parabank.parasoft.com/parabank/index.htm), Parasoft's public demo banking application. Covers both browser-driven UI flows (login, account overview, transfers, bill pay, etc.) and the REST API exposed under `/parabank/services_proxy/bank/`.
-
-> Status: scaffold-only. The repo is currently empty; this file documents the intended setup so the first wave of code lands consistently. Update sections as real conventions emerge.
+End-to-end test automation for [Parabank](https://parabank.parasoft.com/parabank/index.htm), Parasoft's public demo banking application. Covers both browser-driven UI flows (login, account overview, transfers, bill pay, etc.) and the REST API exposed under `/parabank/services/bank/`.
 
 ## Stack
 
@@ -18,21 +16,7 @@ End-to-end test automation for [Parabank](https://parabank.parasoft.com/parabank
 
 ## Common commands
 
-```bash
-npm install                          # install deps
-npx playwright install               # install browser binaries (run once after install)
-
-npm test                             # run all tests (UI + API)
-npx playwright test tests/ui         # run only UI tests
-npx playwright test tests/api        # run only API tests
-npx playwright test path/to/file.spec.ts            # single file
-npx playwright test -g "transfer funds"             # filter by test name
-npx playwright test --headed --project=chromium     # watch a run in a real browser
-npx playwright test --debug          # step through with the Playwright Inspector
-
-npx playwright show-report           # open the HTML report from the last run
-npx playwright codegen $BASE_URL     # record a flow to bootstrap a new test
-```
+See Setup and Running tests in @README.md — the npm scripts in `package.json` are the canonical entry points (`npm test`, `npm run test:ui`, `npm run test:api`, `npm run typecheck`).
 
 ## Configuration
 
@@ -40,29 +24,17 @@ All environment-specific values are read from `.env` via `dotenv` (loaded at the
 
 Expected variables (mirror these in `.env.example`):
 
-| Var | Purpose | Default for public demo |
-| --- | --- | --- |
-| `BASE_URL` | Web UI base, used by `page.goto()` | `https://parabank.parasoft.com/parabank` |
-| `API_BASE_URL` | REST base for API tests | `https://parabank.parasoft.com/parabank/services_proxy/bank` |
-| `TEST_USERNAME` / `TEST_PASSWORD` | Credentials for a pre-registered test user | — |
+| Var | Purpose |
+| --- | --- |
+| `BASE_URL` | Web UI base, used by `page.goto()` |
+| `API_BASE_URL` | REST base for API tests |
+| `TEST_USERNAME` / `TEST_PASSWORD` | Credentials for a pre-registered test user |
 
 `.env` must be gitignored. To target a different environment (local Docker, staging), swap the file — no code changes required.
 
 ## Architecture
 
-Two parallel test trees that share fixtures and helpers:
-
-```
-tests/
-  ui/        # Playwright browser tests, one spec per user flow
-  api/       # REST tests using the `request` fixture
-pages/       # Page Object Models — one class per Parabank screen
-api/         # Typed wrappers around Parabank REST endpoints
-fixtures/    # Custom Playwright fixtures (auth, seeded user, API client)
-utils/       # Pure helpers (data builders, formatters)
-playwright.config.ts
-.env.example
-```
+Two parallel test trees (UI + API) that share fixtures and helpers. See @README.md for the directory layout.
 
 Key conventions to maintain as the project grows:
 
@@ -75,3 +47,47 @@ Key conventions to maintain as the project grows:
 ## CI notes
 
 When CI is added, expose the `.env` vars as repo secrets and ensure `npx playwright install --with-deps` runs before the test step. Upload `playwright-report/` as a build artifact for failure triage.
+
+## Coding standards
+
+- **TypeScript strict mode** — no `any` types
+- File naming (excluding test files): `PascalCase`
+- Method or function naming: `camelCase`
+- Test or spec file naming (**.spec.ts): `kebab-case` (e.g., `login-flow.spec.ts`)
+
+### Page object models
+
+No logic should be contained in the page object models. Page object models must only have the locators and the relevant page object methods.
+
+Page object model files must follow the fluent implementation:
+
+```typescript
+async methodName(): Promise<this> {
+  await this.locatorName.click();
+  return this;
+}
+```
+
+### Test files
+
+No locators must be present in the test files. Similar to page objects, the fluent implementation is also applied. When creating tests, the following pattern is strictly adhered to, the Arrange, Act, Assert pattern:
+
+```typescript
+test.describe('Parabank - <Page name>', () => {
+  test('should <human-readable expectation>', async ({ page }) => {
+    // Arrange
+    // Initial variable declarations and test data set-up are here
+    const home = new HomePage(page);
+
+    // Act
+    // This is where the webpage gets called and interacted
+    await home.methodName()
+      .then((_) => _.anotherMethodName())
+      .then((_) => _.yetAnotherMethodName());
+
+    // Assert
+    // This is where the assertions are set
+    expect(await home.isAssertionMethod()).toBeTruthy();
+  });
+});
+```
