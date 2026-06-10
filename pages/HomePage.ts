@@ -6,6 +6,7 @@ export class HomePage extends BasePage {
     readonly page: Page;
     private readonly url: string = ENV.homePageURL;
     readonly registerLink: Locator;
+    readonly registerButton: Locator;
     readonly firstNameField: Locator;
     readonly firstNameFieldError: Locator;
 
@@ -13,8 +14,9 @@ export class HomePage extends BasePage {
         super(page);
         this.page = page;
         this.registerLink = this.page.getByRole( 'link', { name: 'Register' });
+        this.registerButton = this.page.getByRole( 'button', { name: 'Register' });
         this.firstNameField = this.page.getByRole( 'textbox', { name: 'customer.firstName' });
-        this.firstNameFieldError = this.page.locator('#customer.firstName.errors');
+        this.firstNameFieldError = this.page.locator(`[id="customer.firstName.errors"]`);
     }
 
     // Basic Methods
@@ -26,12 +28,17 @@ export class HomePage extends BasePage {
 
     async clickRegisterLink() {
         await this.registerLink.click();
-        return this
+        return this;
+    }
+
+    async clickRegisterButton() {
+        await this.registerButton.click();
+        return this;
     }
 
     async fillFirstNameField(firstName: string) {
         await this.firstNameField.fill(firstName);
-        return this
+        return this;
     }
 
     async isFirstNameErrorVisible(): Promise<boolean> {

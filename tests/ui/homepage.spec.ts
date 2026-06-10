@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { HomePage } from '../../pages/HomePage';
+import { homePageErrorMessages } from '../../src/data/homePageMessages'
 
 test.beforeEach(async ({ page }) => {
     const homePage = new HomePage(page);
@@ -13,10 +14,12 @@ test.describe('Homepage Tests', () => {
         const homePage = new HomePage(page);
 
         // Act
-        await homePage.clickRegisterLink();
+        await homePage.clickRegisterLink()
+        .then((_) => _.clickRegisterButton());
 
         // Assert
-        expect(homePage.isFirstNameErrorVisible).toBeTruthy();
+        expect(await homePage.isFirstNameErrorVisible()).toBeTruthy();
+        expect(await homePage.getFirstNameError()).toBe(homePageErrorMessages.firstNameErrorMessage);
 
     })
 })

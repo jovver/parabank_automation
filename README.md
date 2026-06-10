@@ -66,6 +66,7 @@ tests/
 pages/       # Page Object Models — one class per Parabank screen
 src/         # contains the configuration files for the fixtures
   config/    # contains the utility functions for the fixtures
+  data/      # contains the page data for items like error messages
 api/         # typed wrappers around Parabank REST endpoints
 fixtures/    # custom Playwright fixtures (auth, seeded user, API client)
 utils/       # utility functions and models
