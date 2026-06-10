@@ -1,10 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
-import 'dotenv/config';
+import dotenv from 'dotenv'
 
-const BASE_URL = process.env.BASE_URL ?? 'https://parabank.parasoft.com/parabank';
+dotenv.config();
+
+const BASE_URL = process.env.BASE_URL;
 
 export default defineConfig({
   testDir: './tests',
+  timeout: 30000,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

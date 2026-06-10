@@ -62,6 +62,7 @@ npx playwright test -g "transfer funds"         # by test name
 tests/
   ui/        # browser tests, one spec per user flow
   api/       # REST tests using Playwright's request fixture
+  data/      # CSV files containing the test data of the project
 pages/       # Page Object Models — one class per Parabank screen
 src/         # contains the configuration files for the fixtures
   config/    # contains the utility functions for the fixtures

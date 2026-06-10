@@ -16,7 +16,15 @@ End-to-end test automation for [Parabank](https://parabank.parasoft.com/parabank
 
 ## Common commands
 
-See Setup and Running tests in @README.md — the npm scripts in `package.json` are the canonical entry points (`npm test`, `npm run test:ui`, `npm run test:api`, `npm run typecheck`).
+```bash
+npm test                    # all tests (UI + API)
+npm run test:ui             # UI tests across Chromium / Firefox / WebKit
+npm run test:api            # API tests only
+npm run test:headed         # watch a run in a real browser
+npm run test:debug          # step through with the Playwright Inspector
+npm run report              # open the HTML report from the last run
+npm run typecheck           # tsc --noEmit
+```
 
 ## Configuration
 
@@ -57,37 +65,8 @@ When CI is added, expose the `.env` vars as repo secrets and ensure `npx playwri
 
 ### Page object models
 
-No logic should be contained in the page object models. Page object models must only have the locators and the relevant page object methods.
+Refer to the @pages/CLAUDE.md file for instructions in creating page object models.
 
-Page object model files must follow the fluent implementation:
+### UI Test files
 
-```typescript
-async methodName(): Promise<this> {
-  await this.locatorName.click();
-  return this;
-}
-```
-
-### Test files
-
-No locators must be present in the test files. Similar to page objects, the fluent implementation is also applied. When creating tests, the following pattern is strictly adhered to, the Arrange, Act, Assert pattern:
-
-```typescript
-test.describe('Parabank - <Page name>', () => {
-  test('should <human-readable expectation>', async ({ page }) => {
-    // Arrange
-    // Initial variable declarations and test data set-up are here
-    const home = new HomePage(page);
-
-    // Act
-    // This is where the webpage gets called and interacted
-    await home.methodName()
-      .then((_) => _.anotherMethodName())
-      .then((_) => _.yetAnotherMethodName());
-
-    // Assert
-    // This is where the assertions are set
-    expect(await home.isAssertionMethod()).toBeTruthy();
-  });
-});
-```
+Refer to the @tests/CLAUDE.md file for instructions in creating UI test files.
