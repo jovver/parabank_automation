@@ -1,17 +1,11 @@
-import { test, expect } from '@playwright/test'
-import { HomePage } from '../../pages/HomePage';
-import { homePageErrorMessages } from '../../src/data/homePageMessages'
-
-test.beforeEach(async ({ page }) => {
-    const homePage = new HomePage(page);
-    await homePage.goto();
-})
+import { expect } from '@playwright/test';
+import { homePageErrorMessages } from '../../src/data/homePageMessages';
+import { test } from '../../fixtures/index';
 
 test.describe('Homepage register button validation tests', () => {
 
-    test(`should see all field validations when clicking 'Register' button immediately`, async ({ page }) => {
+    test(`should see all field validations when clicking 'Register' button immediately`, async ({ homePage }) => {
         // Arrange
-        const homePage = new HomePage(page);
         let boolErrors: boolean;
 
         // Act
@@ -43,5 +37,29 @@ test.describe('Homepage register button validation tests', () => {
 
         expect(await homePage.getConfirmError()).toBe(homePageErrorMessages.confirmErrorMessage);
 
+    })
+
+    test(`should show no errors when filling up the first name`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillFirstNameField('test'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isFirstNameErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow alphanumeric entry on the first name field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillFirstNameField('123'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isFirstNameErrorVisible()).toBeTruthy();
     })
 })

@@ -24,7 +24,7 @@ export class HomePage extends BasePage {
         this.page = page;
         this.registerLink = this.page.getByRole('link', { name: 'Register' });
         this.registerButton = this.page.getByRole('button', { name: 'Register' });
-        this.firstNameField = this.page.getByRole('textbox', { name: 'customer.firstName' });
+        this.firstNameField = this.page.locator(`[id="customer.firstName"]`);
         this.firstNameFieldError = this.page.locator(`[id="customer.firstName.errors"]`);
         this.lastNameFieldError = this.page.locator(`[id="customer.lastName.errors"]`);
         this.addressFieldError = this.page.locator(`[id="customer.address.street.errors"]`);
