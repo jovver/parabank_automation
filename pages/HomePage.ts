@@ -8,6 +8,15 @@ export class HomePage extends BasePage {
     readonly registerLink: Locator;
     readonly registerButton: Locator;
     readonly firstNameField: Locator;
+    readonly lastNameField: Locator;
+    readonly addressField: Locator;
+    readonly cityField: Locator;
+    readonly stateField: Locator;
+    readonly zipCodeField: Locator;
+    readonly ssnField: Locator;
+    readonly userNameField: Locator;
+    readonly passwordField: Locator;
+    readonly confirmField: Locator;
     readonly firstNameFieldError: Locator;
     readonly lastNameFieldError: Locator;
     readonly addressFieldError: Locator;
@@ -25,6 +34,15 @@ export class HomePage extends BasePage {
         this.registerLink = this.page.getByRole('link', { name: 'Register' });
         this.registerButton = this.page.getByRole('button', { name: 'Register' });
         this.firstNameField = this.page.locator(`[id="customer.firstName"]`);
+        this.lastNameField = this.page.locator(`[id="customer.lastName"]`);
+        this.addressField = this.page.locator(`[id="customer.address.street"]`);
+        this.cityField = this.page.locator(`[id="customer.address.city"]`);
+        this.stateField = this.page.locator(`[id="customer.address.state"]`);
+        this.zipCodeField = this.page.locator(`[id="customer.address.zipCode"]`);
+        this.ssnField = this.page.locator(`[id="customer.ssn"]`);
+        this.userNameField = this.page.locator(`[id="customer.username"]`);
+        this.passwordField = this.page.locator(`[id="customer.password"]`);
+        this.confirmField = this.page.locator(`[id="repeatedPassword"]`);
         this.firstNameFieldError = this.page.locator(`[id="customer.firstName.errors"]`);
         this.lastNameFieldError = this.page.locator(`[id="customer.lastName.errors"]`);
         this.addressFieldError = this.page.locator(`[id="customer.address.street.errors"]`);
@@ -56,6 +74,51 @@ export class HomePage extends BasePage {
 
     async fillFirstNameField(firstName: string) {
         await this.firstNameField.fill(firstName);
+        return this;
+    }
+
+    async fillLastNameField(lastName: string) {
+        await this.lastNameField.fill(lastName);
+        return this;
+    }
+
+    async fillAddressField(address: string) {
+        await this.addressField.fill(address);
+        return this;
+    }
+
+    async fillCityField(city: string) {
+        await this.cityField.fill(city);
+        return this;
+    }
+
+    async fillStateField(state: string) {
+        await this.stateField.fill(state);
+        return this;
+    }
+
+    async fillZipCodeField(zipCode: string) {
+        await this.zipCodeField.fill(zipCode);
+        return this;
+    }
+
+    async fillSsnField(ssn: string) {
+        await this.ssnField.fill(ssn);
+        return this;
+    }
+
+    async fillUserNameField(username: string) {
+        await this.userNameField.fill(username);
+        return this;
+    }
+
+    async fillPasswordField(password: string) {
+        await this.passwordField.fill(password);
+        return this;
+    }
+
+    async fillConfirmField(confirm: string) {
+        await this.confirmField.fill(confirm);
         return this;
     }
 

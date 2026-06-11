@@ -62,4 +62,222 @@ test.describe('Homepage register button validation tests', () => {
         // Assert
         expect(await homePage.isFirstNameErrorVisible()).toBeTruthy();
     })
+
+    test(`should show no errors when filling up the last name`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillLastNameField('Doe'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isLastNameErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow numeric entry on the last name field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillLastNameField('123'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isLastNameErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the address`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillAddressField('123 Main St'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isAddressErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow numeric-only entry on the address field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillAddressField('12345'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isAddressErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the city`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillCityField('Los Angeles'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isCityErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow numeric entry on the city field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillCityField('123'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isCityErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the state`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillStateField('California'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isStateErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow numeric entry on the state field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillStateField('123'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isStateErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the zip code`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillZipCodeField('12345'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isZipCodeErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow alphabetic entry on the zip code field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillZipCodeField('ABCDE'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isZipCodeErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the SSN`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillSsnField('123456789'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isSsnErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow alphabetic entry on the SSN field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillSsnField('abc'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isSsnErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the username`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillUserNameField('testuser123'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isUserNameErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not allow special character-only entry on the username field`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillUserNameField('!@#$%'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isUserNameErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when filling up the password`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillPasswordField('Password123!'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isPasswordErrorVisible()).toBeFalsy();
+    })
+
+    test(`should not accept a password that is too short`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillPasswordField('123'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isPasswordErrorVisible()).toBeTruthy();
+    })
+
+    test(`should show no errors when the confirm password matches`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillPasswordField('Password123!'))
+        .then((_) => _.fillConfirmField('Password123!'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isConfirmErrorVisible()).toBeFalsy();
+    })
+
+    test(`should show an error when the confirm password does not match`, async ({ homePage }) => {
+        // Arrange
+
+        // Act
+        await homePage.clickRegisterLink()
+        .then((_) => _.fillPasswordField('Password123!'))
+        .then((_) => _.fillConfirmField('WrongPassword'))
+        .then((_) => _.clickRegisterButton());
+
+        // Assert
+        expect(await homePage.isConfirmErrorVisible()).toBeTruthy();
+    })
 })
