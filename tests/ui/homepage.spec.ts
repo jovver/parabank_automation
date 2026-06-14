@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { homePageErrorMessages } from '../../src/data/homePageMessages';
 import { test } from '../../fixtures/index';
 
-test.describe('Homepage register button validation tests', () => {
+test.describe(`Homepage register button validation tests`, () => {
 
     test(`should see all field validations when clicking 'Register' button immediately`, async ({ homePage }) => {
         // Arrange
@@ -280,4 +280,12 @@ test.describe('Homepage register button validation tests', () => {
         // Assert
         expect(await homePage.isConfirmErrorVisible()).toBeTruthy();
     })
+})
+
+test.describe(`Homepage positive flow tests`, () => {
+
+})
+
+test.describe('Homepage forgot password validation tests', () => {
+    test
 })
