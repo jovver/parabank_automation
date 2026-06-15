@@ -3,7 +3,6 @@ import { BasePage } from './BasePage';
 import { ENV } from '../src/config/urls'
 
 export class HomePage extends BasePage {
-    readonly page: Page;
     private readonly url: string = ENV.homePageURL;
     private readonly registerLink: Locator;
     private readonly aboutLink: Locator;
@@ -14,7 +13,6 @@ export class HomePage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.page = page;
         this.registerLink = this.page.getByRole('link', { name: 'Register' });
         this.aboutLink = this.page.locator('#headerPanel').getByRole('link', { name: 'About Us' });
         this.contactLink = this.page.locator('#headerPanel').getByRole('link', { name: 'contact', exact: true });

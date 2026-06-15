@@ -3,7 +3,6 @@ import { BasePage } from './BasePage';
 import { ENV } from '../src/config/urls';
 
 export class RegistrationPage extends BasePage {
-    readonly page: Page;
     private readonly url: string = ENV.registrationPageURL;
     private readonly registerButton: Locator;
     private readonly firstNameField: Locator;
@@ -29,7 +28,6 @@ export class RegistrationPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
-        this.page = page;
         this.registerButton = this.page.getByRole('button', { name: 'Register' });
         this.firstNameField = this.page.locator('[id="customer.firstName"]');
         this.lastNameField = this.page.locator('[id="customer.lastName"]');

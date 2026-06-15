@@ -24,6 +24,7 @@ test.describe('Parabank - Home Page', () => {
 })
 
 test.describe('Parabank - Home Page navigation tests', () => {
+    
     test('should navigate to the registration page when clicking the Register link', async ({ homePage }) => {
         // Arrange
 
