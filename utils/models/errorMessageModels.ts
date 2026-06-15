@@ -1,4 +1,4 @@
-export interface HomePageErrorMessages {
+export interface RegistrationPageErrorMessages {
     firstNameErrorMessage: string,
     lastNameErrorMessage: string,
     addressFieldErrorMessage: string,
