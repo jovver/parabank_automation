@@ -14,4 +14,9 @@ function requireEnv(key: string): string {
 export const ENV: NavigationURL = {
     homePageURL: requireEnv('HOME_PAGE'),
     registrationPageURL: requireEnv('REGISTER_PAGE'),
+    aboutPageURL: requireEnv('ABOUT_PAGE'),
+    contactPageURL: requireEnv('CONTACT_PAGE'),
+    servicesPageURL: requireEnv('SERVICES_PAGE'),
+    lookupPageURL: requireEnv('LOOKUP_PAGE'),
+    loginPageURL: requireEnv('LOGIN_PAGE'),
 }
