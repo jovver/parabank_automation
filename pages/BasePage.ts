@@ -15,4 +15,12 @@ export abstract class BasePage {
         await this.page.waitForLoadState('domcontentloaded');
     }
 
+    async getUrl(): Promise<string> {
+        return this.page.url();
+    }
+
+    async getTitle(): Promise<string> {
+        return await this.page.title();
+    }
+
 }

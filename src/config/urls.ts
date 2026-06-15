@@ -12,5 +12,6 @@ function requireEnv(key: string): string {
 }
 
 export const ENV: NavigationURL = {
-    homePageURL: requireEnv('HOME_PAGE')
+    homePageURL: requireEnv('HOME_PAGE'),
+    registrationPageURL: requireEnv('REGISTER_PAGE'),
 }

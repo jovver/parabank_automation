@@ -1,6 +1,6 @@
-import { HomePageErrorMessages } from '../../utils/models/errorMessageModels'
+import { RegistrationPageErrorMessages } from '../../utils/models/errorMessageModels'
 
-export const homePageErrorMessages: HomePageErrorMessages = {
+export const registrationPageErrorMessages: RegistrationPageErrorMessages = {
     firstNameErrorMessage: `First name is required.`,
     lastNameErrorMessage: `Last name is required.`,
     addressFieldErrorMessage: `Address is required.`,

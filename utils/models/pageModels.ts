@@ -1,3 +1,7 @@
+export interface PageTitle {
+    title: string
+}
+
 export interface HomePageSignUp {
     firstName: string,
     lastName: string,
