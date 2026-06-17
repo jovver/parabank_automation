@@ -11,3 +11,10 @@ export interface RegistrationPageErrorMessages {
     confirmErrorMessage: string
 }
 
+export interface ContactPageErrorMessages {
+    nameErrorMessage: string,
+    emailErrorMessage: string,
+    phoneErrorMessage: string,
+    messageErrorMessage: string
+}
+
