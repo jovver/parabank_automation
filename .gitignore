@@ -16,3 +16,6 @@ node_modules/
 .vscode/
 .idea/
 *.log
+
+# Superpowers brainstorming/planning artifacts (local-only)
+docs/superpowers/
