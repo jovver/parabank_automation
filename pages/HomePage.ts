@@ -10,6 +10,9 @@ export class HomePage extends BasePage {
     private readonly servicesLink: Locator;
     private readonly forgotLoginLink: Locator;
     private readonly logInButton: Locator;
+    private readonly userNameField: Locator;
+    private readonly passwordField: Locator;
+    private readonly errorField: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -19,6 +22,9 @@ export class HomePage extends BasePage {
         this.servicesLink = this.page.locator('#headerPanel').getByRole('link', { name: 'Services' });
         this.forgotLoginLink = this.page.getByRole('link', { name: 'Forgot login info?' });
         this.logInButton = this.page.getByRole('button', { name: 'Log In' });
+        this.userNameField = this.page.locator('input[name="username"]');
+        this.passwordField = this.page.locator(('input[name="password"]'))
+        this.errorField = this.page.locator('.error');
     }
 
     // Basic Methods
@@ -57,5 +63,19 @@ export class HomePage extends BasePage {
     async clickLogInButton(): Promise<this> {
         await this.logInButton.click();
         return this;
+    }
+
+    async fillUserName(name: string): Promise<this> {
+        await this.userNameField.fill(name);
+        return this;
+    }
+
+    async fillPassword(pw: string): Promise<this> {
+        await this.passwordField.fill(pw);
+        return this;
+    }
+
+    async getErrorText(): Promise<string> {
+        return await this.errorField.innerText();
     }
 }

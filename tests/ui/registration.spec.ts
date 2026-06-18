@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { registrationPageErrorMessages } from '../../src/data/registrationPageMessages';
 import { test } from '../../fixtures/index';
 
-test.describe('Parabank - Registration Page', () => {
+test.describe('Parabank - Registration Page validation tests', () => {
 
     test(`should see all field validations when clicking 'Register' button immediately`, async ({ registrationPage }) => {
         // Arrange
@@ -250,4 +250,16 @@ test.describe('Parabank - Registration Page', () => {
         expect(await registrationPage.isConfirmErrorVisible()).toBeTruthy();
     })
 
+})
+
+test.describe('Parabank - Registration Page successful registration tests', () => {
+    
+    test('should be able to create a new user', async({ registrationPage }) => {
+        // Arrange
+        
+
+        // Act
+
+        // Assert
+    })
 })

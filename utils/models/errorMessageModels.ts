@@ -18,3 +18,8 @@ export interface ContactPageErrorMessages {
     messageErrorMessage: string
 }
 
+export interface LoginPageErrorMessages {
+    noCredentialsMessage: string,
+    notRegisteredMessage: string
+}
+

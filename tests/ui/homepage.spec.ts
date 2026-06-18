@@ -8,6 +8,7 @@ import {
     lookupPageTitle,
     loginErrorPageTitle,
 } from '../../src/data/pageTitles';
+import { loginPageErrorMessages } from '../../src/data/loginPageMessages';
 import { ENV } from '../../src/config/urls';
 import { test } from '../../fixtures/index';
 
@@ -88,6 +89,23 @@ test.describe('Parabank - Home Page navigation tests', () => {
 
         // Assert
         expect(await homePage.getUrl()).toContain(ENV.loginPageURL);
+        expect(await homePage.getErrorText()).toContain(loginPageErrorMessages.noCredentialsMessage);
         expect(await homePage.getTitle()).toBe(loginErrorPageTitle.title);
+    })
+
+    test('should display an error page when clicking the Log In without registering', async ({ homePage }) => {
+        // Arrange
+        let username: string = 'John';
+        let password: string = 'Smith';
+        
+        // Act
+        await homePage.fillUserName(username)
+            .then((_) => _.fillPassword(password))
+            .then((_) => _.clickLogInButton());
+
+        // Assert
+        expect(await homePage.getUrl()).toContain(ENV.loginPageURL);
+        expect(await homePage.getErrorText()).toContain(loginPageErrorMessages.notRegisteredMessage);
+        expect(await homePage.getTitle()).toBe(loginErrorPageTitle.title);  
     })
 })
